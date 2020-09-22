@@ -6,7 +6,13 @@ from email.mime.multipart import MIMEMultipart
 username = 'email.testing.groupb@gmail.com'
 password = 'ABC123ABC123'
 
-def send_mail(text='Email Body', subject='Hello World', from_email='Hungry Py <hungrypy@gmail.com>', to_emails=None, html=None):
+def send_mail(
+                text='Email Body', 
+                subject='Group B', 
+                from_email='LS Testing <email.testing.groupb@gmail.com>', 
+                to_emails=['huulamnguyen@mail.adelphi.edu', 'rengalakshmibalasu@mail.adelphi.edu', 'quangdaotran@mail.adelphi.edu'], 
+                html='<h1>This is LS testing email</h1>'):
+
     assert isinstance(to_emails, list)
     msg = MIMEMultipart('alternative')
     msg['From'] = from_email
@@ -18,13 +24,12 @@ def send_mail(text='Email Body', subject='Hello World', from_email='Hungry Py <h
         html_part = MIMEText(html, 'html')
         msg.attach(html_part)
     msg_str = msg.as_string()
-    # login to my smtp server
-    server = smtplib.SMTP(host='smtp.gmail.com', port=587)
+
+    #todo: login to my smtp server
+    server = smtplib.SMTP(host='smtp.gmail.com', port=587) #todo: Open the server
     server.ehlo()
     server.starttls()
     server.login(username, password)
     server.sendmail(from_email, to_emails, msg_str)
-    server.quit()
-    # with smtplib.SMTP() as server:
-    #     server.login()
-    #     pass
+    server.quit() #todo: quit the server
+   
